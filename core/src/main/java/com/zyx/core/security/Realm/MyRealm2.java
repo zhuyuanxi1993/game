@@ -3,7 +3,7 @@ package com.zyx.core.security.Realm;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.realm.Realm;
 
-public class MyRealm implements Realm{
+public class MyRealm2 implements Realm{
     @Override
     public String getName() {
         return "FisrtRealm";
