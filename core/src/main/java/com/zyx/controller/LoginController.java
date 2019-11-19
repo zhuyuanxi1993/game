@@ -9,8 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -22,22 +23,29 @@ public class LoginController {
 
     @RequestMapping("/hello")
     @ResponseBody
-    public String Hello(@CookieValue(name = "isLogin")String loginName){
+    public String hello(){
 
-        return "已登录用户" + loginName;
+        return "HELLO WORLD";
     }
 
+
     @RequestMapping("/login")
-    @ResponseBody
-    public String Login(HttpServletResponse response, HttpServletRequest request){
-        String userName = (String)request.getParameter("userName");
-        String password = (String)request.getParameter("password");
-        User user = userMapper.selectUserByUserName(userName);
-        if(user != null && user.getPassword().equals(password)){
-            Cookie cookie = new Cookie("isLogin","true");
-            cookie.setMaxAge(300);
+    public String login(){
+        return "login";
+    }
+
+    @RequestMapping("/loginConfirm")
+    public String loginConfirm(@RequestParam(name = "userName")String userName,
+                               @RequestParam(name = "password")String password,
+                               HttpServletResponse response){
+        User user = userMapper.selectUserByUserName(userName,password);
+        if (user != null){
+            Cookie cookie = new Cookie("userName",user.getUserName());
+            Cookie cookie1 = new Cookie("password",user.getPassword());
             response.addCookie(cookie);
+            response.addCookie(cookie1);
         }
-        return "已登录";
+
+        return "登陆成功";
     }
 }

@@ -1,20 +1,21 @@
 package com.zyx.interceptor;
 
 
+import com.alibaba.druid.util.StringUtils;
 import com.zyx.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @Component
-public class LoginInterceptor implements HandlerInterceptor{
+public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
     private LoginService loginService;
@@ -22,16 +23,26 @@ public class LoginInterceptor implements HandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Cookie[] cookies = request.getCookies();
-        boolean flag = false;
+        String username = null;
+        String password = null;
         for(Cookie cookie : cookies){
-            if(cookie.getName().equals("isLogin")){
-                String loginFlag = cookie.getValue();
-                if("true".equals(loginFlag)){
-                    flag = true;
-                }
+            if("userName".equals(cookie.getName())){
+                username = cookie.getValue();
+            }
+            if("password".equals(cookie.getName())){
+                password = cookie.getValue();
             }
         }
-        return flag;
+        if(StringUtils.isEmpty(username) || StringUtils.isEmpty(password)){
+            response.sendRedirect("/login");
+            return false;
+        }
+        boolean flag = loginService.login(username,password);
+        if(flag == false){
+            response.sendRedirect("/login");
+            return false;
+        }
+        return true;
     }
 
     @Override
