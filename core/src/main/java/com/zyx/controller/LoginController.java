@@ -30,11 +30,9 @@ public class LoginController {
 
 
     @RequestMapping("/login")
-    @ResponseBody
     public String login(){
-        List<User> userList = userMapper.selectUserList();
 
-        return userList.get(0).toString();
+        return "login";
     }
 
     @RequestMapping("/loginConfirm")
@@ -48,7 +46,7 @@ public class LoginController {
 //            response.addCookie(cookie);
 //            response.addCookie(cookie1);
 //        }
-
+        System.out.println(1);
         return "登陆成功";
     }
 }

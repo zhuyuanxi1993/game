@@ -12,7 +12,8 @@ public class WebAppConfigurer implements WebMvcConfigurer{
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/","/login","/error","/static/**","/logout");       //添加不拦截路径
+                .excludePathPatterns("/","/login","loginConfirm","/static/**");
+        //添加不拦截路径
 
     }
 }
