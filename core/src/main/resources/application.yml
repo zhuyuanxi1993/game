@@ -21,5 +21,7 @@ spring:
 mybatis:
   configLocation: classpath:config/mybatis-config.xml
   type-aliases-package: com.zyx.model
+  mapper-locations: classpath:mapper/*.xml
+
 
 

@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-//@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @MapperScan("com.zyx.mapper")
 public class CoreApplication {
 

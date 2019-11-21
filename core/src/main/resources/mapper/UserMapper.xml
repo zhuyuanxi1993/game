@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyx.mapper.UserMapper" >
+    <resultMap id="userMap" type="User">
+        <id property="id" column="id"/>
+        <result property="userName" column="user_name" />
+        <result property="loginName" column="login_name" />
+        <result property="password" column="password"/>
+        <result property="salt" column="salt"/>
+        <result property="phone" column="phone"/>
+        <result property="createTime" column="create_time"/>
+        <result property="loginTime" column="login_time"/>
+    </resultMap>
+    <select id="selectUserList" resultMap="userMap">
+        select * from user
+    </select>
+</mapper>

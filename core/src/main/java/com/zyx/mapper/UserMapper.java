@@ -7,9 +7,9 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface UserMapper {
-    @Select("select * from user")
+//    @Select("select * from user")
     List<User> selectUserList();
 
-    @Select({"select * from user where user_name=#{userName}"})
-    User selectUserByUserName(@Param("userName") String userName);
+//    @Select({"select * from user where user_name=#{userName}"})
+//    User selectUserByUserName(@Param("userName") String userName);
 }

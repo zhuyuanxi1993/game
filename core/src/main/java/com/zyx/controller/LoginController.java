@@ -30,21 +30,24 @@ public class LoginController {
 
 
     @RequestMapping("/login")
+    @ResponseBody
     public String login(){
-        return "login";
+        List<User> userList = userMapper.selectUserList();
+
+        return userList.get(0).toString();
     }
 
     @RequestMapping("/loginConfirm")
     public String loginConfirm(@RequestParam(name = "userName")String userName,
                                @RequestParam(name = "password")String password,
                                HttpServletResponse response){
-        User user = userMapper.selectUserByUserName(userName,password);
-        if (user != null){
-            Cookie cookie = new Cookie("userName",user.getUserName());
-            Cookie cookie1 = new Cookie("password",user.getPassword());
-            response.addCookie(cookie);
-            response.addCookie(cookie1);
-        }
+//        User user = userMapper.selectUserByUserName(userName,password);
+//        if (user != null){
+//            Cookie cookie = new Cookie("userName",user.getUserName());
+//            Cookie cookie1 = new Cookie("password",user.getPassword());
+//            response.addCookie(cookie);
+//            response.addCookie(cookie1);
+//        }
 
         return "登陆成功";
     }

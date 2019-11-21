@@ -13,10 +13,10 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public boolean login(String userName, String password) {
         boolean flag = false;
-        User user = userMapper.selectUserByUserName(userName, password);
-        if (user != null){
-            flag = true;
-        }
+//        User user = userMapper.selectUserByUserName(userName, password);
+//        if (user != null){
+//            flag = true;
+//        }
         return flag;
     }
 }
