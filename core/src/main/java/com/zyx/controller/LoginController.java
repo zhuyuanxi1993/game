@@ -1,18 +1,19 @@
 package com.zyx.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.zyx.Constants.ResCodeEnum;
 import com.zyx.mapper.UserMapper;
-import com.zyx.model.User;
 import com.zyx.service.LoginService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class LoginController {
@@ -23,7 +24,8 @@ public class LoginController {
 
     @RequestMapping("/hello")
     @ResponseBody
-    public String hello(){
+    public String hello(HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
 
         return "HELLO WORLD";
     }
@@ -31,22 +33,18 @@ public class LoginController {
 
     @RequestMapping("/login")
     public String login(){
-
         return "login";
     }
 
     @RequestMapping("/loginConfirm")
-    public String loginConfirm(@RequestParam(name = "userName")String userName,
-                               @RequestParam(name = "password")String password,
-                               HttpServletResponse response){
-//        User user = userMapper.selectUserByUserName(userName,password);
-//        if (user != null){
-//            Cookie cookie = new Cookie("userName",user.getUserName());
-//            Cookie cookie1 = new Cookie("password",user.getPassword());
-//            response.addCookie(cookie);
-//            response.addCookie(cookie1);
-//        }
-        System.out.println(1);
-        return "登陆成功";
+    @ResponseBody
+    public String loginConfirm(HttpServletRequest request, HttpServletResponse response){
+
+        Map<String,String> retMap = getCookieVal(request,"userName");
+        Map<String,String>
+        String retStr = JSONObject.toJSONString(retMap);
+
+        return retStr;
     }
+
 }

@@ -14,4 +14,7 @@
     <select id="selectUserList" resultMap="userMap">
         select * from user
     </select>
+    <select id="selectUserByLoginName" resultMap="userMap">
+        select * from user where loginName = #{loginName}
+    </select>
 </mapper>

@@ -10,6 +10,5 @@ public interface UserMapper {
 //    @Select("select * from user")
     List<User> selectUserList();
 
-//    @Select({"select * from user where user_name=#{userName}"})
-//    User selectUserByUserName(@Param("userName") String userName);
+    User selectUserByLoginName(@Param("loginName") String loginName);
 }

@@ -1,8 +1,8 @@
 package com.zyx.interceptor;
 
 
-import com.alibaba.druid.util.StringUtils;
 import com.zyx.service.LoginService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -23,22 +23,13 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Cookie[] cookies = request.getCookies();
-        String username = null;
-        String password = null;
+        String loginFlag = null;
         for(Cookie cookie : cookies){
-            if("userName".equals(cookie.getName())){
-                username = cookie.getValue();
-            }
-            if("password".equals(cookie.getName())){
-                password = cookie.getValue();
+            if("isLogin".equals(cookie.getName())){
+                loginFlag = cookie.getValue();
             }
         }
-        if(StringUtils.isEmpty(username) || StringUtils.isEmpty(password)){
-            response.sendRedirect("/login");
-            return false;
-        }
-        boolean flag = loginService.login(username,password);
-        if(flag == false){
+        if(StringUtils.isEmpty(loginFlag) || !"true".equals(loginFlag)){
             response.sendRedirect("/login");
             return false;
         }
