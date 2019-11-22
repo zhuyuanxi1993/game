@@ -1,5 +1,6 @@
 package com.zyx.service.impl;
 
+import com.alibaba.druid.util.StringUtils;
 import com.zyx.Constants.ResCodeEnum;
 import com.zyx.mapper.UserMapper;
 import com.zyx.model.User;
@@ -23,6 +24,14 @@ public class LoginServiceImpl implements LoginService {
         User user = userMapper.selectUserByLoginName(loginName);
         if(user != null) {
             String currentPassword = MD5Util.getMD5(password,user.getSalt());
+            if(StringUtils.isEmpty(currentPassword)){
+                return false;
+            }
+            if(currentPassword.equals(user.getPassword())){
+                return true;
+            }else{
+                return false;
+            }
         } else {
             return false;
         }
