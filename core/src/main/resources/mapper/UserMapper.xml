@@ -15,6 +15,6 @@
         select * from user
     </select>
     <select id="selectUserByLoginName" resultMap="userMap">
-        select * from user where loginName = #{loginName}
+        select * from user where login_name = #{loginName}
     </select>
 </mapper>

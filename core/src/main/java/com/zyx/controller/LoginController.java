@@ -39,12 +39,11 @@ public class LoginController {
     @RequestMapping("/loginConfirm")
     @ResponseBody
     public String loginConfirm(HttpServletRequest request, HttpServletResponse response){
-
-        Map<String,String> retMap = getCookieVal(request,"userName");
-        Map<String,String>
-        String retStr = JSONObject.toJSONString(retMap);
-
-        return retStr;
+        boolean loginFlag = loginService.login(request,response);
+        Map<String,Object> resMap = new HashMap<>();
+        resMap.put("isLogin",loginFlag);
+        String reStr = JSONObject.toJSONString(resMap);
+        return reStr;
     }
 
 }

@@ -6,7 +6,7 @@
 </head>
 <body>
 <form id="loginForm"  method="post">
-    username：<input id="userName" type="text" name="userName" />
+    username：<input id="loginName" type="text" name="loginName" />
     password：<input id="password" type="password" name="password" />
     <input type="button" onclick="login()" value="登录"/>
 </form>
@@ -17,19 +17,21 @@
 
     function login() {
 //        var userName = document.getElementById("userName");
-        var userName = $("#userName").val();
+        var loginName = $("#loginName").val();
         var password = $("#password").val();
         password = hex_md5(password);
         $.ajax({
             type:"post",// get或者post
-            url:"/loginConfirm?userName=" + userName + "&password=" + password,// 请求的url地址
+            url:"/loginConfirm?loginName=" + loginName + "&password=" + password,// 请求的url地址
             data:{},//请求的参数
             dataType:"json",//json写了jq会帮我们转换成数组或者对象 他已经用JSON.parse弄好了
             timeout:3000,//3秒后提示错误
             success:function(data){ // 成功拿到结果放到这个函数 data就是拿到的结果
-                if(data.code == 'SSSSSSS'){
+                if(data.isLogin == 'true'){
                     window.location.href = "/hello";
-                    alert(data.code);
+                    alert('登陆成功');
+                }else {
+                    alert('登录失败');
                 }
             }
         })
