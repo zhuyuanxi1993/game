@@ -51,4 +51,6 @@ public class LoginController {
     public String register(@RequestParam("loginName")String loginName, @Param("password")String password){
         return null;
     }
+
+
 }
