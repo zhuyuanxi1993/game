@@ -5,6 +5,7 @@ import com.zyx.Constants.ResCodeEnum;
 import com.zyx.mapper.UserMapper;
 import com.zyx.service.LoginService;
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -46,4 +47,8 @@ public class LoginController {
         return reStr;
     }
 
+    @RequestMapping("/Register")
+    public String register(@RequestParam("loginName")String loginName, @Param("password")String password){
+        return null;
+    }
 }
